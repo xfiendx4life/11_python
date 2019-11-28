@@ -40,8 +40,6 @@ class TestDb(unittest.TestCase):
 		logout(self.session, 'pacan')
 		#p = self.session.query(Person).filter(Person.login == 'pacan').first()
 		s = self.session.query(UserSession).filter(UserSession.user_id == 1).first()
-		print(s.start_time)
-		print( s.finish_time)
 		self.assertTrue(s.start_time < s.finish_time)
 
 	def test_authenticate_wrong_password(self):

@@ -15,7 +15,7 @@ class Person(Base):
     login = Column(String)
     password = Column(String)
     info = Column(String)
-
+    
     def __init__(self, name, password, info):
         self.login = name
         self.password = password
