@@ -1,0 +1,7 @@
+INSERT INTO Student (Name, lastname, middle_name) VALUES ('Cyberpunk', 'Ivanov', 'Petrovich')
+INSERT INTO Student (Name, lastname, middle_name) VALUES ('Cryptopunk', 'Petrov', 'Ivanovich')
+INSERT INTO Student (Name, lastname, middle_name) VALUES ('Cybeslav', 'Semenov', 'Yaropolkovich')
+INSERT INTO Marks (Physics, Math, Russian, student_id) VALUES (5, 4, 3, 1)
+INSERT INTO Marks (Physics, Math, Russian, student_id) VALUES (5, 2, 2, 1)
+INSERT INTO Marks (Physics, Math, Russian, student_id) VALUES (2, 4, 3, 2)
+INSERT INTO Marks (Physics, Math, Russian, student_id) VALUES (5, 5, 5, 3)
