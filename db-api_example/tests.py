@@ -25,10 +25,10 @@ class Test_db(unittest.TestCase):
 		cursor.execute("SELECT name From Student WHERE name = 'Cyberslav' and lastname ='Petrov' ")
 		self.assertEqual(cursor.fetchone()[0], 'Cyberslav')
 
-	def testAddFalse(self):
-		cursor = self.conn.cursor()
-		add(self.conn, 'Cyberslav', 'Petrov')
-		self.assertFalse(add(self.conn, 'Cyberslav', 'Petrov'))
+	'''def testAddFalse(self):
+					cursor = self.conn.cursor()
+					add(self.conn, 'Cyberslav', 'Petrov')
+					self.assertFalse(add(self.conn, 'Cyberslav', 'Petrov'))'''
 
 
 	def testAddMark(self):
@@ -40,7 +40,8 @@ class Test_db(unittest.TestCase):
 		addMark(self.conn, 'Cyberslav', 'Petrov', math=5, physics=3, russian=2)
 		cursor = self.conn.cursor()
 		mark = cursor.execute('''SELECT math FROM Student, Marks 
-						WHERE Student.id = student_id and name = 'Cyberslav' and lastname = 'Petrov' ''').fetchone()[0]
+						WHERE Student.id = student_id and name = 'Cyberslav' 
+						and lastname = 'Petrov' ''').fetchone()[0]
 		self.assertEqual(mark , 5)
 
 
