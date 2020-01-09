@@ -16,11 +16,18 @@
 		<div class="container">
 			<div class="card">
 				<div class="card-header">
-					{% block header %}{% endblock %}
+					<h3>{{name}}</h3>
 				</div>
 	  			<div class="card-body">
 	    			<blockquote class="blockquote mb-0">
-	      				{% block content %}{% endblock %}
+	    				<ul>
+	    					{% for item in items %}
+	    						<li><p>{{item}}</p></li>
+	    					{% endfor %}
+	    					{% if name == 'pacan' %}
+	    						<li><p>Чётки</p></li>
+	    					{% endif %}
+	    				</ul>
 	      			</blockquote>
 	   			</div>
 	      		<div class="card-footer text-muted">Made by School #1580 </div>

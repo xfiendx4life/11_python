@@ -1,15 +1,22 @@
 from flask import Flask
 from flask import escape
+import jinja2
+import os
 
 app = Flask(__name__)
 
+template_dir = os.path.join(os.path.dirname(__file__), 'templates' )
+jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
+
+
+def render(template,**params):
+   t = jinja_env.get_template(template)
+   return t.render(params)
+
 @app.route('/index')
 def hello_world():
-	return '''
-		<a href="/index/pokupki"> Покупки </a>
-		<br>
-		<a href="/index/rabota"> Работа </a>
-	'''
+	l = ['Камень', 'Подорожник', 'Лапух']
+	return render('1.html', name='pacan', items=l)
 
 @app.route('/index/<name>')
 def chek(name):

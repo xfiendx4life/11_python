@@ -1,0 +1,14 @@
+	{% extends "base.html" %}
+
+	{% block header %}
+		<h1>Страница с формой</h1>
+	{% endblock %}
+
+	{% block content %}
+	<ul>
+		<form> <!-- method = "POST"-->
+			<input style="margin-bottom: 10px;" class="form-control" type="text" name="data">
+			<input class="btn btn-primary" type="submit" name="ok">
+		</form>
+	</ul>
+	{% endblock %}
