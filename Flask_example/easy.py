@@ -15,12 +15,12 @@ def render(template,**params):
 
 @app.route('/index')
 def hello_world():
-	l = ['Камень', 'Подорожник', 'Лапух']
-	return render('1.html', name='pacan', items=l)
+	l = ['Камень', 'Подорожник', 'Лопух']
+	return render('1.html', name='Пацан', items=l)
 
 @app.route('/index/<name>')
 def chek(name):
-	return 'Хэллоу %s' % name
+	return render('2.html')
 
 
 if __name__ == '__main__':

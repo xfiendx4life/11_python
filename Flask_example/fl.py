@@ -16,28 +16,29 @@ def render(template,**params):
 
 @app.route('/index')
 def hello_world():
-	items = ['Лягушка', 'Динозавр', 'Семён']
+	items = ['ЖАБА!', 'Динозавр', 'Семён']
 	return render('index.html', name='Человек', items=items)
 
 @app.route('/note/<name>')
 def note(name):
 	return  render('more.html', name=name) 
 
-'''@app.route('/request-test', methods=['GET', 'POST'])
+@app.route('/request-test', methods=['GET', 'POST'])
 def request_test():
 	if request.method == 'POST':
 		name = request.form['data']
+		# заполнить базу данных
 		return redirect(url_for('note', name=name))
 	else:
-		return render('requests_ex.html')'''
+		return render('requests_ex.html')
 
-@app.route('/request-test')
-def request_test():
+
+@app.route('/request-test-get')
+def request_test_get():
 	if 'data' in request.args.keys():
 		name = request.args.get('data')
 		return redirect(url_for('note', name=name))
-	return render('requests_ex.html')
-		
+	return render('requests_ex_get.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

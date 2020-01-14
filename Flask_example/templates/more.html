@@ -5,5 +5,10 @@
 	{% endblock %}
 	
 	{% block content %}
+	{% if name == 'Семён' %}
+		<div style="background-image: url(https://scx1.b-cdn.net/csz/news/800/2019/4-space.jpg); border-radius: 5px;">
+		 	<p style="color: green; margin-left: 5px;">Билет на автобус </p>  <h3 style="color: red; margin-left: 5px;">+  Лена </h3>
+		</div>
+	{% endif %}
 	<br><a href="/index">Назад</a>
 	{% endblock %}
