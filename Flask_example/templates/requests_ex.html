@@ -6,9 +6,10 @@
 
 	{% block content %}
 	<ul>
-		<form method = "POST">
-			<input style="margin-bottom: 10px;" class="form-control" type="text" name="data">
-			<input class="btn btn-primary" type="submit" name="ok" >
+		<form method = "POST" style="width: 60%; align: auto;">
+			<input style="margin-bottom: 10px;" class="form-control" type="text" name="login">
+			<input type="password" style="margin-bottom: 10px;" class="form-control" name="password">
+			<input class="btn btn-primary" type="submit" value="Войти" >
 		</form>
 	</ul>
 	{% endblock %}
