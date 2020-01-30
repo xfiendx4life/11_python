@@ -13,9 +13,9 @@ def authenticate(username, password):
 	u = User.query.filter_by(username=username).first()
 	return u and u.password == password
 
-def delete_user(username, password):
-	if authenticate(username, password):
-		u = User.query.filter_by(username=username).first()
+def delete_user(username):
+	u = User.query.filter_by(username=username).first()
+	if u:
 		db.session.delete(u)
 		db.session.commit()
 		return True
@@ -29,16 +29,21 @@ def get_user_id(username):
 
 
 def add_note(head, body, username):
-	user_id = get_user_id(username)
-	if user_id:
-		if not Note.query.filter_by(head=head).first():
-			note = Note(head=head, body=body, user_id=user_id)
-			db.session.add(note)
-			db.session.commit()
-			return True
-	return False
+	u = User.query.filter_by(username=username).first()
+	if u:
+		note = Note(head=head, body=body)
+		u.notes.append(note)
+		db.session.commit()
+		return True
+	else:
+		return False
 
 def get_note(head, username):
+	'''
+	note = Note.query.filter_by(head=head, user=username).first()
+	return note if note else False
+
+	'''
 	user_id = get_user_id(username)
 	if user_id:
 		note = Note.query.filter_by(head=head, user_id=user_id).first()
@@ -46,11 +51,8 @@ def get_note(head, username):
 	return False
 
 def get_note_list(username):
-	if User.query.filter_by(username=username).first():
-		u = User.query.filter_by(username=username).first()
-		return u.notes
-	else:
-		return False
+	u = User.query.filter_by(username=username).first()
+	return u.notes if u	else False
 	
 
 def edit_note(username, head, new_text):

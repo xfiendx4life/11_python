@@ -11,7 +11,7 @@ class User(db.Model):
     notes = db.relationship('Note', backref='user', lazy=True)
 	
     def __repr__(self):
-        return '<User %r>' % self.username
+        return self.username
 
 class Note(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
