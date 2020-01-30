@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Список покупок</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<style type="text/css">
+			.container {
+				width: 70%;
+				margin-top: 20px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="card">
+				<div class="card-header">
+					{% block header %}{% endblock %}
+				</div>
+	  			<div class="card-body">
+	    			<blockquote class="blockquote mb-0">
+	      				{% block content %}{% endblock %}
+	      			</blockquote>
+	      			<a href="../.." class="btn btn-secondary" style="float: right;">Список заметок</a>
+	   			</div>
+	      		<div class="card-footer text-muted">Made by School #1580 </div>
+			</div>
+		</div>
+	</body>
+</html>

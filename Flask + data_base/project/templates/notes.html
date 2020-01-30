@@ -1,0 +1,14 @@
+	{% extends "base.html" %}
+
+	{% block header %}
+		<h1>Список заметок пользователя {{name}}</h1>
+	{% endblock %}
+
+	{% block content %}
+	<ul>
+		{% for item in notes %}
+			<li><a href="/note/{{item}}"> {{item}}</a></li>
+		{% endfor %}	
+	</ul>
+	{% endblock %}
+
