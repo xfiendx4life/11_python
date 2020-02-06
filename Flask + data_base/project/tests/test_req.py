@@ -32,13 +32,26 @@ class RequestTests(unittest.TestCase):
 		response = self.app.get('/', follow_redirects=True)
 		self.assertEqual(response.status_code, 200)
 
-	def test_refgistration(self):
+	def test_auth(self):
 		u = User(username='Cyberslav', password='1234567', email='cyber@mail.ru')
 		db.session.add(u)
 		db.session.commit()
 		response = self.app.post('/login', data=dict(username='Cyberslav', password='1234567'), follow_redirects=True)
 		with self.app.session_transaction() as sess:
 			self.assertEqual(sess['username'], 'Cyberslav')
+
+	def test_logout(self):
+		u = User(username='Cyberslav', password='1234567', email='cyber@mail.ru')
+		db.session.add(u)
+		db.session.commit()
+		response = self.app.post('/login', data=dict(username='Cyberslav', password='1234567'), follow_redirects=True)
+		resp = self.app.get('/logout', follow_redirects=True)
+		with self.app.session_transaction() as sess:
+			self.assertNotIn('Cyberslav', sess)
+
+	def test_registration(self):
+		pass
+
 
 
 if __name__ == "__main__":

@@ -2,13 +2,10 @@ from flask import Flask, redirect, url_for, make_response, session, request
 import os
 from .base_processing import *
 import jinja2
-
 from . import app
 
-
-
-template_dir = os.path.join(os.path.dirname(__file__), 'templates' )
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
+#template_dir = os.path.join(os.path.dirname(__file__), 'templates' )
+jinja_env = jinja2.Environment(loader = jinja2.PackageLoader('project', 'templates'), autoescape = True)
 
 
 def render(template,**params):
@@ -27,10 +24,21 @@ def login():
 	if request.method == 'POST':
 		username = request.form['username']
 		password = request.form['password']
-		if authenticate(username, password):
+		if username and password and authenticate(username, password):
 			session['username'] = username
 			return redirect(url_for('index'))
 	return render('login.html')
+
+@app.route('/register', methods=['POST', 'GET'])
+def register_user():
+	if request.method == "POST":
+		username = request.form['username']
+		password = request.form['password']
+		email = request.form['email']
+		if username and password and email and register(username, password, email):
+			session['username'] = username
+			return redirect(url_for('index'))
+	return render("register.html")
 
 @app.route('/note/<name>')
 def note(name):

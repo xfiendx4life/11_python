@@ -5,11 +5,15 @@
 	{% endblock %}
 
 	{% block content %}
-	<ul>
 		<form method = "POST" style="width: 60%; align: auto;">
-			<input style="margin-bottom: 10px;" class="form-control" type="text" name="username">
-			<input type="password" style="margin-bottom: 10px;" class="form-control" name="password">
+			<div class="form-group">
+			 	<label for="username">Имя пользователя</label>
+					<input style="margin-bottom: 10px;" class="form-control" type="text" name="username">
+			</div>
+			<div class="form-group">
+			 	<label for="username">Пароль</label>
+					<input type="password" style="margin-bottom: 10px;" class="form-control" name="password">
+			</div>
 			<input class="btn btn-primary" type="submit" value="Войти" >
 		</form>
-	</ul>
 	{% endblock %}

@@ -1,0 +1,23 @@
+	{% extends "base.html" %}
+
+	{% block header %}
+		Вход
+	{% endblock %}
+
+	{% block content %}
+		<form method = "POST" style="width: 60%; align: auto;">
+			<div class="form-group">
+			    <label for="email">Email</label>
+			    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+			 </div>
+			 <div class="form-group">
+			 	<label for="username">Имя пользователя</label>
+				<input style="margin-bottom: 10px;" class="form-control" type="text" name="username">
+			</div>
+			<div class="form-group">
+				<label for="password">Пароль</label>
+				<input type="password" style="margin-bottom: 10px;" class="form-control" name="password">
+			</div>
+			<input class="btn btn-primary" type="submit" value="Регистрация" >
+		</form>
+	{% endblock %}
