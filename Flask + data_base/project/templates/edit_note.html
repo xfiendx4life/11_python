@@ -1,0 +1,19 @@
+	{% extends "base.html" %}
+
+	{% block header %}
+		Измените заметку
+	{% endblock %}
+
+	{% block content %}
+		<form method = "POST" style="width: 60%; align: auto;">
+			 <div class="form-group">
+			 	<label for="note_name">Название заметки</label>
+				<input style="margin-bottom: 10px;" class="form-control" type="text" name="head" value="{{note.head}}">
+			</div>
+			<div class="form-group">
+    			<label for="bodyarea">Введите вашу заметку</label>
+    			<textarea class="form-control" name="body" id="bodyarea" rows="10">{{note.body}}</textarea>
+  			</div>
+			<input class="btn btn-primary" type="submit" value="Добавить" >
+		</form>
+	{% endblock %}

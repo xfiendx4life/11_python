@@ -47,6 +47,15 @@ def note(name):
 		return render('note.html', head=note.head, body=note.body)
 	return redirect(url_for('login'))
 
+@app.route('/add_note', methods=['GET', 'POST'])
+def add_note_view(note=' '):
+	if 'username' in session:
+		if request.method == 'POST':
+			if request.form['head'] and request.form['body'] and add_note(request.form['head'], request.form['body'], session['username']):
+				return redirect(url_for('index'))
+		return render('edit_note.html', note=note)
+	return redirect(url_for('index'))
+
 @app.route('/logout')
 def logout():
 	if 'username' in session:
