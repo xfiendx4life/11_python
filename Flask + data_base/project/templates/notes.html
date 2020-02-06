@@ -5,10 +5,13 @@
 	{% endblock %}
 
 	{% block content %}
-	<ul>
+	<table style="border-style: none; width: 100%;padding-bottom: 20px;">
 		{% for item in notes %}
-			<li><a href="/note/{{item}}"> {{item}}</a></li>
+		<tr>
+			<td> <a href="/note/{{item}}"> {{item}}</a></li> </td> 
+			<td  style="text-align: right;"> <a href="/delete_note/{{item.id}}" class="btn btn-outline-danger" > Удалить </a>
+		</tr>	
 		{% endfor %}	
-	</ul>
+	</table>
 	{% endblock %}
 
