@@ -48,7 +48,7 @@ def note(name):
 	return redirect(url_for('login'))
 
 @app.route('/add_note', methods=['GET', 'POST'])
-def add_note_view(note=' '):
+def add_note_view(note=''):
 	if 'username' in session:
 		if request.method == 'POST':
 			if request.form['head'] and request.form['body'] and add_note(request.form['head'], request.form['body'], session['username']):
