@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, make_response, session, request
+from flask import Flask, redirect, url_for, make_response, session, request, render_template
 import os
 from .base_processing import *
 import jinja2
@@ -6,7 +6,7 @@ from . import app
 
 #template_dir = os.path.join(os.path.dirname(__file__), 'templates' )
 jinja_env = jinja2.Environment(loader = jinja2.PackageLoader('project', 'templates'), autoescape = True)
-
+jinja_env.globals['STATIC_PREFIX'] = '/'
 
 def render(template,**params):
    t = jinja_env.get_template(template)
@@ -61,3 +61,15 @@ def logout():
 	if 'username' in session:
 		session.pop('username')
 	return redirect(url_for('login'))
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+	# Если исключение было вызвано ошибкой взаимодействия с базой данных, 
+	# нам необходимо откатить текущую сессию.
+    db.session.rollback()
+    return render_template('500.html'), 500

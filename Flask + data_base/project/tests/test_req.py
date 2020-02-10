@@ -1,4 +1,4 @@
-# project/test_req.py
+# project/tests/test_req.py
 
 import unittest
 import os
@@ -25,6 +25,7 @@ class RequestTests(unittest.TestCase):
 		db.create_all()
 
 	def tearDown(self):
+		db.session.remove()
 		db.drop_all()
 
 
