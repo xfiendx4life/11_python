@@ -16,7 +16,7 @@ def render(template,**params):
 def index():
 	if 'username' in session:
 		notes = get_note_list(session['username'])
-		return render('notes.html', notes=notes, name=session['username'])
+		return render_template('notes.html', notes=notes, name=session['username'])
 	return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -27,7 +27,7 @@ def login():
 		if username and password and authenticate(username, password):
 			session['username'] = username
 			return redirect(url_for('index'))
-	return render('login.html')
+	return render_template('login.html')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register_user():
@@ -38,13 +38,13 @@ def register_user():
 		if username and password and email and register(username, password, email):
 			session['username'] = username
 			return redirect(url_for('index'))
-	return render("register.html")
+	return render_template("register.html")
 
 @app.route('/note/<name>')
 def note(name):
 	if 'username' in session:
 		note = get_note(name, session['username'])
-		return render('note.html', head=note.head, body=note.body)
+		return render_template('note.html', head=note.head, body=note.body)
 	return redirect(url_for('login'))
 
 @app.route('/add_note', methods=['GET', 'POST'])
@@ -53,7 +53,7 @@ def add_note_view(note=''):
 		if request.method == 'POST':
 			if request.form['head'] and request.form['body'] and add_note(request.form['head'], request.form['body'], session['username']):
 				return redirect(url_for('index'))
-		return render('edit_note.html', note=note)
+		return render_template('edit_note.html', note=note)
 	return redirect(url_for('index'))
 
 @app.route('/logout')
