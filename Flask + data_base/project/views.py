@@ -1,16 +1,8 @@
 from flask import Flask, redirect, url_for, make_response, session, request, render_template
 import os
 from .base_processing import *
-import jinja2
 from . import app
 
-#template_dir = os.path.join(os.path.dirname(__file__), 'templates' )
-jinja_env = jinja2.Environment(loader = jinja2.PackageLoader('project', 'templates'), autoescape = True)
-jinja_env.globals['STATIC_PREFIX'] = '/'
-
-def render(template,**params):
-   t = jinja_env.get_template(template)
-   return t.render(params)
 
 @app.route('/')
 def index():
