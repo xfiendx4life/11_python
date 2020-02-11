@@ -21,6 +21,14 @@ def delete_user(username):
 		return True
 	return False
 
+def delete_note(note_id):
+	n = Note.query.filter_by(id=note_id).first()
+	if n:
+		db.session.delete(n)
+		db.session.commit()
+		return True
+	return False
+
 def get_user_id(username):
 	u = User.query.filter_by(username=username).first()
 	if u:

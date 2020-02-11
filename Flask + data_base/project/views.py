@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, make_response, session, request, render_template
+from flask import Flask, redirect, url_for, make_response, session, request, render_template, flash
 import os
 from .base_processing import *
 from . import app
@@ -30,6 +30,8 @@ def register_user():
 		if username and password and email and register(username, password, email):
 			session['username'] = username
 			return redirect(url_for('index'))
+		else:
+			flash(u'User exists. Check your login and email')
 	return render_template("register.html")
 
 @app.route('/note/<name>')
@@ -38,6 +40,13 @@ def note(name):
 		note = get_note(name, session['username'])
 		return render_template('note.html', head=note.head, body=note.body)
 	return redirect(url_for('login'))
+
+@app.route('/delete_note/<int:item_id>')
+def delete_note_handler(item_id):
+	if not delete_note(item_id):
+		flash("Delete is broken")
+	return redirect(url_for('index'))
+
 
 @app.route('/add_note', methods=['GET', 'POST'])
 def add_note_view(note=''):
