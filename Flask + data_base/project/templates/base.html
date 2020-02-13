@@ -41,11 +41,16 @@
 					
 				</div>
 	  			<div class="card-body">
-	  				{% with messages = get_flashed_messages() %}
+	  				{% with messages = get_flashed_messages(with_categories=true) %}
 	  				{% if messages %}
-	  				{% for message in messages %}
-	  				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					  <strong>{{message}}</strong> There was an error.
+	  				{% for category, message in messages %}
+	  				<div class="{% if category == 'error' %} 
+	  						alert alert-warning 
+	  					{% else %} 
+	  						alert alert-success
+	  					{% endif %}
+	  					alert-dismissible fade show" role="alert">
+					  <strong>{{message}}</strong>
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    <span aria-hidden="true">&times;</span>
 					  </button>
@@ -57,13 +62,15 @@
 	    			<blockquote class="blockquote mb-0">
 	      				{% block content %}{% endblock %}
 	      			</blockquote>
+	      			{% if session.username %}
 	      			<a href="../.." class="btn btn-secondary" style="float: right;margin-top: 10px;">Список заметок</a>
+	   				{% endif %}
 	   			</div>
 	      		<div class="card-footer text-muted">Made by School #1580 </div>
 			</div>
 		</div>
 			{% if session.username %}
-			<a href="/logout" style="position: absolute;bottom: 0%;right: 0%;" class="btn btn-link">x</a>
+			<a href="/logout" style="position: absolute;bottom: 0%;right: 0%; font-size: 150%;" class="btn btn-link">x</a>
 			{% endif %}
 			{% if not session.username %}
 			<a href="/register" style="position: absolute;bottom: 0%;left: 0%;" class="btn btn-link">Регистрация</a>

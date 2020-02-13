@@ -33,6 +33,15 @@ class RequestTests(unittest.TestCase):
 		response = self.app.get('/', follow_redirects=True)
 		self.assertEqual(response.status_code, 200)
 
+	def test_main_page_with_session(self):
+		u = User(username='Cyberslav', password='1234567', email='cyber@mail.ru')
+		db.session.add(u)
+		db.session.commit()
+		with self.app.session_transaction() as sess:
+			sess['username'] = 'Cyberslav'
+		response = self.app.get('/', follow_redirects=True)
+		self.assertEqual(response.status_code, 200)
+
 	def test_auth(self):
 		u = User(username='Cyberslav', password='1234567', email='cyber@mail.ru')
 		db.session.add(u)
@@ -45,10 +54,11 @@ class RequestTests(unittest.TestCase):
 		u = User(username='Cyberslav', password='1234567', email='cyber@mail.ru')
 		db.session.add(u)
 		db.session.commit()
-		response = self.app.post('/login', data=dict(username='Cyberslav', password='1234567'), follow_redirects=True)
+		with self.app.session_transaction() as sess:
+			sess['username'] = 'Cyberslav'
 		resp = self.app.get('/logout', follow_redirects=True)
 		with self.app.session_transaction() as sess:
-			self.assertNotIn('Cyberslav', sess)
+			self.assertNotIn('Cyberslav', sess.values())
 
 	def test_registration(self):
 		response = self.app.post('/register', data=dict(username='Cyberslav', password='1234567', 
@@ -81,6 +91,16 @@ class RequestTests(unittest.TestCase):
 		db.session.commit()
 		response = self.app.get('/delete_note/2', follow_redirects=True)
 		self.assertIn(b"Delete is broken", response.data)
+
+	def test_add_note(self):
+		u = User(username='Cyberslav', password='1234567', email='cyber@mail.ru')
+		db.session.add(u)
+		db.session.commit()
+		with self.app.session_transaction() as sess:
+			sess['username'] = 'Cyberslav'
+		response = self.app.post('/add_note', data=dict(head="Test note", body='test body for test note'), 
+			follow_redirects=True)
+		self.assertIn(b'Successfully added', response.data)
 
 if __name__ == "__main__":
     unittest.main()

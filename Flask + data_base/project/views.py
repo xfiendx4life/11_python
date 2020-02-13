@@ -18,7 +18,10 @@ def login():
 		password = request.form['password']
 		if username and password and authenticate(username, password):
 			session['username'] = username
+			flash(u'Добро пожаловать', 'success')
 			return redirect(url_for('index'))
+		else:
+			flash(u'Неверный логин или пароль', 'error')
 	return render_template('login.html')
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -29,9 +32,10 @@ def register_user():
 		email = request.form['email']
 		if username and password and email and register(username, password, email):
 			session['username'] = username
+			flash(u'Спасибо за регистрацию', 'success')
 			return redirect(url_for('index'))
 		else:
-			flash(u'User exists. Check your login and email')
+			flash(u'User exists. Check your login and email', 'error')
 	return render_template("register.html")
 
 @app.route('/note/<name>')
@@ -44,7 +48,7 @@ def note(name):
 @app.route('/delete_note/<int:item_id>')
 def delete_note_handler(item_id):
 	if not delete_note(item_id):
-		flash("Delete is broken")
+		flash("Delete is broken", 'error')
 	return redirect(url_for('index'))
 
 
@@ -53,6 +57,7 @@ def add_note_view(note=''):
 	if 'username' in session:
 		if request.method == 'POST':
 			if request.form['head'] and request.form['body'] and add_note(request.form['head'], request.form['body'], session['username']):
+				flash('Successfully added', 'success')
 				return redirect(url_for('index'))
 		return render_template('edit_note.html', note=note)
 	return redirect(url_for('index'))
